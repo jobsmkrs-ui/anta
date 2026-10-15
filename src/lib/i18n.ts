@@ -56,8 +56,8 @@ export const BRAND = {
 export const NAV: { id: string; label: Localized }[] = [
   { id: "home", label: { en: "Home", ar: "الرئيسية" } },
   { id: "about", label: { en: "About", ar: "من نحن" } },
-  { id: "solutions", label: { en: "Solutions", ar: "الحلول" } },
   { id: "spotlight", label: { en: "AntA Care", ar: "أنتا كير" } },
+  { id: "solutions", label: { en: "Solutions", ar: "الحلول" } },
   { id: "gallery", label: { en: "Gallery", ar: "المعرض" } },
   { id: "why", label: { en: "Why AntA", ar: "لماذا أنتا" } },
   { id: "roadmap", label: { en: "Coming Soon", ar: "قريبًا" } },
@@ -121,8 +121,8 @@ export const ABOUT = {
     ar: "تأسست إم كيه تكنولوجيز، وهي اختصار لـ«حلول مرونة معرفة الآلات»، لتجعل برمجيات الأعمال مرنة وتحت سيطرة مالكها. نؤمن بأن المؤسسات يجب ألا تفقد وصولها إلى أنظمتها أو بياناتها بسبب انقطاع الاتصال أو انتهاء اشتراك أو قرار من مورّد. ومن هذا الإيمان وُلدت أنتا (الشبكة التكيّفية للتقنية والأتمتة): برمجيات تعمل دون إنترنت، وتحمي البيانات محليًا، ولا تستخدم الذكاء عبر الإنترنت إلا عندما تختار أنت.",
   },
   body2: {
-    en: "From clinics and retail stores to vehicle fleets, HR departments, private homes and rental businesses, AntA turns day-to-day operations into organized, trackable and measurable workflows, with no hidden fees and no artificial limits. Every AntA solution runs locally first, then connects online when you want intelligence, remote access or integration — never the other way around.",
-    ar: "من العيادات ومتاجر التجزئة إلى أساطيل المركبات وإدارات الموارد البشرية والمنازل الخاصة وأنشطة التأجير، تحوّل أنتا العمليات اليومية إلى مسارات عمل منظمة وقابلة للتتبع والقياس، دون رسوم خفية ودون قيود مصطنعة. يعمل كل حل من حلول أنتا محليًا أولًا، ثم يتصل بالإنترنت عندما تريد الذكاء أو الوصول عن بُعد أو التكامل مع أنظمة أخرى — وليس العكس أبدًا.",
+    en: "From clinics and retail stores to vehicle fleets, HR departments, private homes and rental businesses, AntA turns day-to-day operations into organized, trackable and measurable workflows, with no hidden fees and no artificial limits. Every AntA solution runs locally first, then connects online when you want intelligence, remote access or integration — never the other way around. We begin with the place where time and data matter most: the clinic.",
+    ar: "من العيادات ومتاجر التجزئة إلى أساطيل المركبات وإدارات الموارد البشرية والمنازل الخاصة وأنشطة التأجير، تحوّل أنتا العمليات اليومية إلى مسارات عمل منظمة وقابلة للتتبع والقياس، دون رسوم خفية ودون قيود مصطنعة. يعمل كل حل من حلول أنتا محليًا أولًا، ثم يتصل بالإنترنت عندما تريد الذكاء أو الوصول عن بُعد أو التكامل مع أنظمة أخرى — وليس العكس أبدًا. ونبدأ من المكان الذي يكون فيه الوقت والبيانات أثمن ما لديك: العيادة.",
   },
   stats: [
     { value: "100%", label: { en: "Offline capable", ar: "يعمل دون اتصال" } },
@@ -338,8 +338,8 @@ export const SPOTLIGHT = {
     ar: "وقتك للطب… وليس للأوراق.",
   },
   subtitle: {
-    en: "AntA Care is more than clinic software. It is a complete ecosystem designed to reorganize how your clinic runs: less repetitive admin work, a faster patient journey, and protected sensitive information.",
-    ar: "أنتا كير ليست مجرد برنامج لإدارة العيادات، بل منظومة متكاملة صُمّمت لإعادة تنظيم سير العمل في عيادتك: عمل إداري متكرر أقل، ورحلة مريض أسرع، ومعلومات حساسة محمية.",
+    en: "Meet AntA Care, where the AntA philosophy meets the clinic. It is more than clinic software: it is a complete ecosystem designed to reorganize how your clinic runs: less repetitive admin work, a faster patient journey, and protected sensitive information.",
+    ar: "تعرّف على أنتا كير، حيث تلتقي فلسفة أنتا بالعيادة. فهي ليست مجرد برنامج لإدارة العيادات، بل منظومة متكاملة صُمّمت لإعادة تنظيم سير العمل في عيادتك: عمل إداري متكرر أقل، ورحلة مريض أسرع، ومعلومات حساسة محمية.",
   },
   philosophy: {
     title: { en: "Five verbs that define AntA Care", ar: "خمسة أفعال تلخّص أنتا كير" },
@@ -647,8 +647,8 @@ export const CURRICULUM = {
     ar: "مرتّبة بحسب ما تديره فعلًا.",
   },
   subtitle: {
-    en: "Seven AntA systems, grouped by the goal they serve — not by departmental boundaries.",
-    ar: "سبعة أنظمة من أنتا، مصنّفة بحسب الهدف الذي تخدمه — لا بحسب حدود الإدارات.",
+    en: "AntA Care is just the start. Seven AntA systems, grouped by the goal they serve — not by departmental boundaries.",
+    ar: "أنتا كير هي البداية فقط. سبعة أنظمة من أنتا، مصنّفة بحسب الهدف الذي تخدمه — لا بحسب حدود الإدارات.",
   },
   groups: [
     {
