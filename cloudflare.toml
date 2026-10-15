@@ -1,4 +1,9 @@
 # Netlify configuration for AntA static site
+
+[[services]]
+binding = "WORKER_SELF_REFERENCE"
+service = "mkanta"
+
 [build]
   command = ""
   publish = "."
