@@ -31,6 +31,7 @@ export function SpecsSheet() {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(false);
+  const [errorDetail, setErrorDetail] = useState("");
   const [method, setMethod] = useState<"email" | "whatsapp" | "phone">("email");
   // Local selection (used when no productId preselected). When productId is
   // set, the select is controlled by the provider; when the user picks a
@@ -47,7 +48,7 @@ export function SpecsSheet() {
     const productName =
       PRODUCTS.find((p) => p.id === selectedProduct)?.name.en ??
       (selectedProduct || "General inquiry");
-    const ok = await sendForm({
+    const result = await sendForm({
       subject: `AntA website — Specs request: ${productName}`,
       product: productName,
       name: String(data.get("name") ?? ""),
@@ -58,8 +59,11 @@ export function SpecsSheet() {
       preferred_contact: method,
     });
     setSending(false);
-    if (ok) setSubmitted(true);
-    else setError(true);
+    if (result.ok) setSubmitted(true);
+    else {
+      setError(true);
+      setErrorDetail(result.message ?? "");
+    }
   };
 
   const reset = () => {
@@ -82,22 +86,22 @@ export function SpecsSheet() {
     <Sheet open={open} onOpenChange={handleClose}>
       <SheetContent
         side={lang === "ar" ? "left" : "right"}
-        className="w-full sm:max-w-lg overflow-y-auto thin-scroll p-0 border-[var(--brand-steel)] bg-[var(--brand-black)]"
+        className="w-full sm:max-w-lg overflow-y-auto thin-scroll p-0 border-slate-200 bg-white text-slate-900"
       >
-        <SheetHeader className="p-6 pb-4 border-b border-[var(--brand-steel)] bg-gradient-to-br from-black to-[var(--brand-coal)] text-[var(--brand-chrome)] sticky top-0 z-10">
+        <SheetHeader className="p-6 pb-4 border-b border-slate-200 bg-white text-slate-900 sticky top-0 z-10">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <SheetTitle className="text-2xl font-black text-[var(--brand-chrome)] flex items-center gap-2 tracking-tight">
-                <FileText className="h-6 w-6 text-[var(--brand-orange)]" />
+              <SheetTitle className="text-2xl font-black text-slate-900 flex items-center gap-2 tracking-tight">
+                <FileText className="h-6 w-6 text-emerald-600" />
                 {SPECS.title[lang]}
               </SheetTitle>
-              <SheetDescription className="text-[var(--brand-silver)] mt-2 text-sm leading-relaxed">
+              <SheetDescription className="text-slate-600 mt-2 text-sm leading-relaxed">
                 {SPECS.subtitle[lang]}
               </SheetDescription>
             </div>
-            <SheetClose className="rounded-lg p-1.5 hover:bg-[var(--brand-orange)]/10 transition" asChild>
+            <SheetClose className="rounded-lg p-1.5 hover:bg-slate-100 transition" asChild>
               <button aria-label={SPECS.close[lang]}>
-                <X className="h-5 w-5 text-[var(--brand-chrome)]" />
+                <X className="h-5 w-5 text-slate-700" />
               </button>
             </SheetClose>
           </div>
@@ -122,13 +126,13 @@ export function SpecsSheet() {
                 >
                   <CheckCircle2 className="h-10 w-10 text-white" />
                 </motion.div>
-                <h3 className="mt-5 text-2xl font-extrabold text-[var(--brand-deep)]">
+                <h3 className="mt-5 text-2xl font-extrabold text-emerald-800">
                   {SPECS.successTitle[lang]}
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-foreground/80 max-w-sm mx-auto">
+                <p className="mt-3 text-sm leading-relaxed text-slate-700 max-w-sm mx-auto">
                   {SPECS.successBody[lang]}
                 </p>
-                <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-[var(--brand-amber)]/10 px-3 py-1.5 text-xs font-semibold text-[var(--brand-amber)]">
+                <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1.5 text-xs font-semibold text-amber-800">
                   <Sparkles className="h-3.5 w-3.5" />
                   {SPECS.successContact[lang]}
                 </div>
@@ -137,13 +141,13 @@ export function SpecsSheet() {
                   <Button
                     onClick={reset}
                     variant="outline"
-                    className="border-[var(--brand)]/30 text-[var(--brand-deep)] hover:bg-[var(--brand)]/5"
+                    className="border-emerald-600/40 bg-white text-emerald-800 hover:bg-emerald-50"
                   >
                     {SPECS.another[lang]}
                   </Button>
                   <Button
                     onClick={() => handleClose(false)}
-                    className="bg-[var(--brand-deep)] text-background hover:bg-[var(--brand)]"
+                    className="bg-emerald-700 text-white hover:bg-emerald-600"
                   >
                     {SPECS.close[lang]}
                   </Button>
@@ -161,24 +165,24 @@ export function SpecsSheet() {
               >
                 {/* Product select */}
                 <div>
-                  <label className="text-xs font-semibold text-foreground/80 mb-1.5 block">
-                    {SPECS.productLabel[lang]} <span className="text-[var(--brand-amber)]">*</span>
+                  <label className="text-xs font-semibold text-slate-800 mb-1.5 block">
+                    {SPECS.productLabel[lang]} <span className="text-red-500">*</span>
                   </label>
                   <Select
                     value={selectedProduct}
                     onValueChange={setUserSelected}
                     required
                   >
-                    <SelectTrigger className="w-full bg-background/50">
+                    <SelectTrigger className="w-full bg-white text-slate-900 border-slate-300">
                       <SelectValue placeholder={SPECS.productPlaceholder[lang]} />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-white text-slate-900 border-slate-200">
                       {PRODUCTS.map((p) => (
-                        <SelectItem key={p.id} value={p.id}>
+                        <SelectItem key={p.id} value={p.id} className="text-slate-900 focus:bg-emerald-50 focus:text-slate-900">
                           {p.name[lang]} — {p.tagline[lang]}
                         </SelectItem>
                       ))}
-                      <SelectItem value="general">{SPECS.generalInquiry[lang]}</SelectItem>
+                      <SelectItem value="general" className="text-slate-900 focus:bg-emerald-50 focus:text-slate-900">{SPECS.generalInquiry[lang]}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -186,26 +190,26 @@ export function SpecsSheet() {
                 {/* Name + Email */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-xs font-semibold text-foreground/80 mb-1.5 block">
-                      {SPECS.nameLabel[lang]} <span className="text-[var(--brand-amber)]">*</span>
+                    <label className="text-xs font-semibold text-slate-800 mb-1.5 block">
+                      {SPECS.nameLabel[lang]} <span className="text-red-500">*</span>
                     </label>
                     <Input
                       required
                       name="name"
                       placeholder={SPECS.namePlaceholder[lang]}
-                      className="bg-background/50"
+                      className="bg-white text-slate-900 border-slate-300 placeholder:text-slate-400"
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-semibold text-foreground/80 mb-1.5 block">
-                      {SPECS.emailLabel[lang]} <span className="text-[var(--brand-amber)]">*</span>
+                    <label className="text-xs font-semibold text-slate-800 mb-1.5 block">
+                      {SPECS.emailLabel[lang]} <span className="text-red-500">*</span>
                     </label>
                     <Input
                       required
                       name="email"
                       type="email"
                       placeholder={SPECS.emailPlaceholder[lang]}
-                      className="bg-background/50"
+                      className="bg-white text-slate-900 border-slate-300 placeholder:text-slate-400"
                     />
                   </div>
                 </div>
@@ -213,19 +217,19 @@ export function SpecsSheet() {
                 {/* Company + Phone */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-xs font-semibold text-foreground/80 mb-1.5 block">
-                      {SPECS.companyLabel[lang]} <span className="text-[var(--brand-amber)]">*</span>
+                    <label className="text-xs font-semibold text-slate-800 mb-1.5 block">
+                      {SPECS.companyLabel[lang]} <span className="text-red-500">*</span>
                     </label>
                     <Input
                       required
                       name="company"
                       placeholder={SPECS.companyPlaceholder[lang]}
-                      className="bg-background/50"
+                      className="bg-white text-slate-900 border-slate-300 placeholder:text-slate-400"
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-semibold text-foreground/80 mb-1.5 block">
-                      {SPECS.phoneLabel[lang]} <span className="text-[var(--brand-amber)]">*</span>
+                    <label className="text-xs font-semibold text-slate-800 mb-1.5 block">
+                      {SPECS.phoneLabel[lang]} <span className="text-red-500">*</span>
                     </label>
                     <Input
                       required
@@ -233,14 +237,14 @@ export function SpecsSheet() {
                       type="tel"
                       dir="ltr"
                       placeholder={SPECS.phonePlaceholder[lang]}
-                      className="bg-background/50"
+                      className="bg-white text-slate-900 border-slate-300 placeholder:text-slate-400"
                     />
                   </div>
                 </div>
 
                 {/* Preferred contact method */}
                 <div>
-                  <label className="text-xs font-semibold text-foreground/80 mb-2 block">
+                  <label className="text-xs font-semibold text-slate-800 mb-2 block">
                     {SPECS.contactMethodLabel[lang]}
                   </label>
                   <div className="grid grid-cols-3 gap-2">
@@ -254,18 +258,18 @@ export function SpecsSheet() {
                           onClick={() => setMethod(m.id as typeof method)}
                           className={`flex flex-col items-center justify-center gap-1.5 rounded-xl border p-3 transition ${
                             isActive
-                              ? "border-[var(--brand)] bg-[var(--brand)]/8 shadow-sm"
-                              : "border-border bg-background/50 hover:bg-muted/40"
+                              ? "border-emerald-600 bg-emerald-50 shadow-sm"
+                              : "border-slate-300 bg-white hover:bg-slate-50"
                           }`}
                         >
                           <Icon
                             className={`h-5 w-5 ${
-                              isActive ? "text-[var(--brand-deep)]" : "text-muted-foreground"
+                              isActive ? "text-emerald-700" : "text-slate-500"
                             }`}
                           />
                           <span
                             className={`text-xs font-semibold ${
-                              isActive ? "text-[var(--brand-deep)]" : "text-foreground/80"
+                              isActive ? "text-emerald-800" : "text-slate-700"
                             }`}
                           >
                             {m.label[lang]}
@@ -273,7 +277,7 @@ export function SpecsSheet() {
                           {isActive && (
                             <motion.div
                               layoutId="method-dot"
-                              className="h-1 w-1 rounded-full bg-[var(--brand-amber)]"
+                              className="h-1 w-1 rounded-full bg-emerald-600"
                             />
                           )}
                         </button>
@@ -283,13 +287,13 @@ export function SpecsSheet() {
                 </div>
 
                 {/* Required note */}
-                <p className="text-[11px] text-muted-foreground">{SPECS.requiredNote[lang]}</p>
+                <p className="text-[11px] text-slate-500">{SPECS.requiredNote[lang]}</p>
 
                 {/* Submit */}
                 <Button
                   type="submit"
                   disabled={sending}
-                  className="w-full h-12 bg-[var(--brand-deep)] text-background hover:bg-[var(--brand)] gap-2 shadow-lg shadow-[var(--brand-deep)]/20"
+                  className="w-full h-12 bg-emerald-700 text-white hover:bg-emerald-600 disabled:opacity-70 gap-2 shadow-lg shadow-emerald-900/20"
                 >
                   <Send className="h-4 w-4" />
                   {sending ? (lang === "en" ? "Sending…" : "جارٍ الإرسال…") : SPECS.submit[lang]}
@@ -299,26 +303,29 @@ export function SpecsSheet() {
                     {lang === "en"
                       ? `Sorry, your request could not be sent. Please email us at ${BRAND.email}.`
                       : `عذرًا، تعذّر إرسال طلبك. يرجى مراسلتنا على ${BRAND.email}.`}
+                    {errorDetail && (
+                      <span dir="ltr" className="block mt-1 opacity-80">({errorDetail})</span>
+                    )}
                   </p>
                 )}
 
                 {/* Contact strip */}
-                <div className="pt-4 mt-2 border-t border-border text-center">
-                  <div className="text-xs text-muted-foreground mb-1">
+                <div className="pt-4 mt-2 border-t border-slate-200 text-center">
+                  <div className="text-xs text-slate-500 mb-1">
                     {lang === "en" ? "Or reach us directly:" : "أو تواصل معنا مباشرة:"}
                   </div>
                   <div className="flex flex-wrap items-center justify-center gap-3 text-xs">
                     <a
                       href={`mailto:${BRAND.email}`}
-                      className="inline-flex items-center gap-1.5 text-[var(--brand-deep)] hover:text-[var(--brand-amber)]"
+                      className="inline-flex items-center gap-1.5 text-emerald-700 hover:text-emerald-900"
                     >
                       <Mail className="h-3.5 w-3.5" />
                       {BRAND.email}
                     </a>
-                    <span className="text-border">·</span>
+                    <span className="text-slate-300">·</span>
                     <a
                       href={`tel:${BRAND.phone.replace(/\s/g, "")}`}
-                      className="inline-flex items-center gap-1.5 text-[var(--brand-deep)] hover:text-[var(--brand-amber)]"
+                      className="inline-flex items-center gap-1.5 text-emerald-700 hover:text-emerald-900"
                       dir="ltr"
                     >
                       <Phone className="h-3.5 w-3.5" />
