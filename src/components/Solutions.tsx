@@ -92,7 +92,7 @@ function FlipCard({
                   onToggle();
                 }}
               >
-                {lang === "en" ? "View certifications →" : "عرض الشهادات →"}
+                {lang === "en" ? "View key features →" : "عرض أبرز المزايا →"}
               </div>
             </div>
           </div>
@@ -104,7 +104,7 @@ function FlipCard({
           <div className="p-5 md:p-6 flex flex-col h-[calc(100%-1.5px)]">
             <div className="flex items-center justify-between">
               <div className="text-[10px] label-mono text-[var(--brand-orange)]">
-                {lang === "en" ? "CERTIFICATIONS" : "الشهادات"}
+                {lang === "en" ? "KEY FEATURES" : "أبرز المزايا"}
               </div>
               <div className="flex items-center gap-1 text-[10px] label-mono text-[var(--brand-silver)] cursor-pointer hover:text-[var(--brand-chrome)]"
                 onClick={(e) => {
