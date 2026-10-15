@@ -40,19 +40,21 @@ export function MemberStories() {
   // Keyboard nav
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") go(index + 1);
-      else if (e.key === "ArrowLeft") go(index - 1);
+      const nextKey = isRtl ? "ArrowLeft" : "ArrowRight";
+      const prevKey = isRtl ? "ArrowRight" : "ArrowLeft";
+      if (e.key === nextKey) go(index + 1);
+      else if (e.key === prevKey) go(index - 1);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [index, go]);
+  }, [index, go, isRtl]);
 
   const onDragEnd = (_: unknown, info: PanInfo) => {
     setDragging(false);
     const threshold = 60;
     if (isRtl) {
-      if (info.offset.x > threshold) go(index - 1);
-      else if (info.offset.x < -threshold) go(index + 1);
+      if (info.offset.x > threshold) go(index + 1);
+      else if (info.offset.x < -threshold) go(index - 1);
     } else {
       if (info.offset.x < -threshold) go(index + 1);
       else if (info.offset.x > threshold) go(index - 1);
@@ -107,7 +109,7 @@ export function MemberStories() {
                 className="story-track flex"
                 style={{ width: `${items.length * 100}%` }}
                 animate={{
-                  x: `-${index * (100 / items.length)}%`,
+                  x: `${isRtl ? "" : "-"}${index * (100 / items.length)}%`,
                 }}
                 transition={{
                   type: "spring",
@@ -176,7 +178,7 @@ export function MemberStories() {
             </div>
 
             {/* Counter */}
-            <div className="mt-3 text-[10px] label-mono text-[var(--brand-silver)] text-center">
+            <div dir="ltr" className="mt-3 text-[10px] label-mono text-[var(--brand-silver)] text-center">
               {String(index + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
             </div>
           </div>
@@ -209,7 +211,7 @@ function StoryCard({
         <div className="text-[10px] label-mono text-[var(--brand-orange)]">
           {tag.toUpperCase()}
         </div>
-        <div className="text-[10px] label-mono text-[var(--brand-silver)]">
+        <div dir="ltr" className="text-[10px] label-mono text-[var(--brand-silver)]">
           {String(index).padStart(2, "0")} / {String(total).padStart(2, "0")}
         </div>
       </div>
