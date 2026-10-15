@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <title>AntA by MK Technologies — Company Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    @page { size: 720px 1020px; margin: 0; }
+    :root {
+      --c-bg: #faf6ee;
+      --c-cream: #faf6ee;
+      --c-deep: #0c3a36;
+      --c-brand: #15564f;
+      --c-amber: #d97706;
+      --c-ink: #1f2937;
+      --c-muted: #6b7280;
+      --c-line: #e7d9c0;
+    }
+    * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 720px;
+      background: var(--c-bg);
+      color: var(--c-ink);
+      font-family: 'Inter', 'Noto Naskh Arabic', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    @media screen {
+      html { display: flex; justify-content: center; background: #2a2418; height: auto; }
+      body { margin: 24px auto; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+    }
+
+    /* Cover */
+    .cover {
+      width: 720px;
+      height: 1020px;
+      box-sizing: border-box;
+      break-after: page;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(160deg, #0c3a36 0%, #15564f 60%, #1a6258 100%);
+      color: #faf6ee;
+      padding: 70px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217,119,6,0.35) 0%, transparent 70%);
+    }
+    .cover::after {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(21,86,79,0.5) 0%, transparent 70%);
+    }
+    .cover-top { position: relative; display: flex; justify-content: space-between; align-items: flex-start; }
+    .cover-logo {
+      width: 56px; height: 56px;
+      background: #faf6ee;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: var(--c-deep);
+      font-weight: 900;
+      font-size: 30px;
+      font-family: 'Playfair Display', serif;
+    }
+    .cover-tag {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(250,246,238,0.75);
+      text-align: right;
+    }
+    .cover-tag b { color: var(--c-amber); display: block; font-weight: 700; letter-spacing: 0.18em; }
+    .cover-center { position: relative; z-index: 2; }
+    .cover-pill {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--c-amber);
+      border: 1px solid rgba(217,119,6,0.4);
+      background: rgba(217,119,6,0.08);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 22px;
+    }
+    .cover-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 78px;
+      line-height: 0.96;
+      font-weight: 900;
+      color: #faf6ee;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .cover-title .accent { color: var(--c-amber); font-style: italic; font-weight: 400; }
+    .cover-sub {
+      margin-top: 24px;
+      font-size: 22px;
+      line-height: 1.3;
+      max-width: 540px;
+      color: rgba(250,246,238,0.92);
+      font-weight: 300;
+    }
+    .cover-arabic {
+      direction: rtl;
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 22px;
+      line-height: 1.5;
+      margin-top: 14px;
+      color: rgba(250,246,238,0.7);
+    }
+    .cover-bottom {
+      position: relative; z-index: 2;
+      display: flex; justify-content: space-between; align-items: flex-end;
+      border-top: 1px solid rgba(250,246,238,0.15);
+      padding-top: 24px;
+    }
+    .cover-meta { font-size: 11px; color: rgba(250,246,238,0.7); letter-spacing: 0.06em; line-height: 1.6; }
+    .cover-meta b { color: #faf6ee; font-weight: 600; }
+    .cover-edition {
+      font-family: 'Playfair Display', serif;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--c-amber);
+    }
+
+    /* Body sections */
+    .main-content {
+      padding: 60px 56px 50px 56px;
+    }
+    .section-tag {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--c-amber);
+      border: 1px solid rgba(217,119,6,0.35);
+      background: rgba(217,119,6,0.06);
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      line-height: 1.15;
+      font-weight: 900;
+      color: var(--c-deep);
+      margin: 12px 0 6px 0;
+    }
+    .section-title-ar {
+      direction: rtl;
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--c-brand);
+      margin-top: 0;
+    }
+    .divider {
+      height: 3px;
+      width: 56px;
+      background: var(--c-amber);
+      margin: 14px 0 18px 0;
+      border-radius: 2px;
+    }
+    .body-text {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: var(--c-ink);
+      margin-bottom: 12px;
+    }
+    .body-text-ar {
+      direction: rtl;
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--c-ink);
+      text-align: right;
+      margin-bottom: 14px;
+    }
+    .chapter-header {
+      break-after: avoid;
+      break-inside: avoid;
+      margin-top: 28px;
+    }
+    .chapter-header:first-child { margin-top: 0; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+      break-inside: avoid;
+    }
+    .stat {
+      border: 1px solid var(--c-line);
+      background: white;
+      border-radius: 12px;
+      padding: 14px 10px;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--c-amber);
+      line-height: 1;
+    }
+    .stat-label {
+      margin-top: 4px;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--c-muted);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 14px;
+    }
+    .lang-block {
+      border: 1px solid var(--c-line);
+      background: white;
+      border-radius: 12px;
+      padding: 18px 18px 14px 18px;
+    }
+    .lang-block.en { direction: ltr; text-align: left; }
+    .lang-block.ar { direction: rtl; text-align: right; font-family: 'Noto Naskh Arabic', serif; }
+    .lang-block h3 {
+      margin: 0 0 10px 0;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--c-amber);
+    }
+    .lang-block p { font-size: 13px; line-height: 1.65; margin: 0; color: var(--c-ink); }
+    .lang-block.ar p { font-size: 14px; line-height: 1.85; }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-top: 18px;
+      break-inside: avoid;
+    }
+    .pillar {
+      border: 1px solid var(--c-line);
+      background: white;
+      border-radius: 12px;
+      padding: 16px 14px;
+      break-inside: avoid;
+    }
+    .pillar-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--c-amber);
+      line-height: 1;
+    }
+    .pillar-title {
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--c-deep);
+      margin-top: 6px;
+    }
+    .pillar-title-ar {
+      direction: rtl;
+      font-family: 'Noto Naskh Arabic', serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--c-deep);
+      margin-top: 2px;
+    }
+    .pillar-body {
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--c-muted);
+      margin-top: 6px;
+    }
+
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .solution-card {
+      border: 1px solid var(--c-line);
+      background: white;
+      border-radius: 14px;
+      padding: 16px;
+      break-inside: avoid;
+      position: relative;
+      overflow: hidden;
+    }
+    .solution-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--c-amber);
+    }
+    .solution-name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--c-deep);
+    }
+    .solution-name-ar {
+      direction: rtl;
+      font-family: 'Noto Naskh Arabic', serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--c-brand);
+      margin-top: 2px;
+    }
+    .solution-tagline {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--c-amber);
+      margin-top: 4px;
+      font-weight: 600;
+    }
+    .solution-desc {
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--c-muted);
+      margin-top: 8px;
+    }
+    .solution-desc-ar {
+      direction: rtl;
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 12.5px;
+      line-height: 1.8;
+      color: var(--c-muted);
+      margin-top: 6px;
+      text-align: right;
+    }
+
+    .ending {
+      width: 720px;
+      height: 1020px;
+      box-sizing: border-box;
+      break-before: page;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(165deg, #0c3a36 0%, #15564f 100%);
+      color: #faf6ee;
+      padding: 80px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .ending::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217,119,6,0.18) 0%, transparent 65%);
+    }
+    .ending-top { position: relative; z-index: 2; }
+    .ending-pill {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--c-amber);
+      border: 1px solid rgba(217,119,6,0.4);
+      background: rgba(217,119,6,0.08);
+      padding: 6px 14px;
+      border-radius: 999px;
+    }
+    .ending-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 56px;
+      line-height: 1.05;
+      font-weight: 900;
+      margin-top: 24px;
+      letter-spacing: -0.01em;
+    }
+    .ending-headline .accent { color: var(--c-amber); font-style: italic; font-weight: 400; }
+    .ending-ar {
+      direction: rtl;
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 28px;
+      line-height: 1.4;
+      margin-top: 16px;
+      color: rgba(250,246,238,0.85);
+    }
+    .ending-bottom { position: relative; z-index: 2; border-top: 1px solid rgba(250,246,238,0.15); padding-top: 24px; }
+    .ending-email {
+      font-size: 22px;
+      font-weight: 600;
+      color: #faf6ee;
+    }
+    .ending-website {
+      font-size: 13px;
+      color: rgba(250,246,238,0.65);
+      margin-top: 6px;
+    }
+    .ending-edition {
+      font-family: 'Playfair Display', serif;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--c-amber);
+      margin-top: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ====================== COVER ====================== -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-logo">A</div>
+    <div class="cover-tag">
+      <b>AntA by MK Technologies</b>
+      Machine Knowledge Resilience Solutions
+    </div>
+  </div>
+
+  <div class="cover-center">
+    <span class="cover-pill">Company Profile · الملف التعريفي</span>
+    <h1 class="cover-title">
+      Own your code.<br>
+      <span class="accent">Own your data.</span>
+    </h1>
+    <div class="cover-sub">
+      AntA by MK Technologies — smart management systems that run offline, stay secure, and get smarter online.
+    </div>
+    <div class="cover-arabic">
+      امتلك كودك. امتلك بياناتك. — أنتا من إم كيه تكنولوجيز: أنظمة إدارة ذكية تعمل دون إنترنت، وتحمي بياناتك، وتزداد ذكاءً عند الاتصال.
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-meta">
+      <b>AntA.mkrs@gmail.com</b><br>
+      Built in Egypt · Designed for the MEA region
+    </div>
+    <div class="cover-edition">Edition 2026</div>
+  </div>
+</div>
+
+<!-- ====================== BODY ====================== -->
+<div class="main-content">
+
+  <!-- Section 1: About -->
+  <div class="chapter-header">
+    <span class="section-tag">01 · About</span>
+    <h2 class="section-title">Resilient by design, owner-controlled by principle</h2>
+    <h3 class="section-title-ar">مرنة بالتصميم، تحت سيطرة مالكها بمبدأ</h3>
+    <div class="divider"></div>
+  </div>
+
+  <p class="body-text">
+    MK Technologies, short for Machine Knowledge Resilience Solutions, exists to make business software resilient and owner-controlled. We believe organizations should never lose access to their systems or their data because of a connection, a subscription or a vendor decision. That belief shaped AntA: software that works offline, protects data locally and uses online intelligence only when you choose.
+  </p>
+  <p class="body-text-ar">
+    إم كيه تكنولوجيز، اختصارًا لحلول المرونة المعرفية للآلات، وُجدت لتجعل برمجيات الأعمال مرنة وتحت سيطرة مالكها. نؤمن بأن المؤسسات يجب ألا تفقد الوصول إلى أنظمتها أو بياناتها بسبب انقطاع اتصال أو اشتراك أو قرار مورّد. هذا الإيمان صاغ أنتا: برمجيات تعمل دون إنترنت، وتحمي البيانات محليًا، وتستخدم الذكاء عبر الإنترنت فقط عندما تختار.
+  </p>
+  <p class="body-text">
+    From medical centers and retail stores to vehicle fleets, HR departments and private homes, AntA turns day-to-day operations into organized, trackable and measurable workflows — with no hidden fees and no artificial limits. Every AntA solution runs locally first, then connects online when you want intelligence, remote access or integration — never the other way around.
+  </p>
+  <p class="body-text-ar">
+    من المراكز الطبية ومتاجر التجزئة إلى أساطيل المركبات وإدارات الموارد البشرية والمنازل الخاصة، تحوّل أنتا العمليات اليومية إلى مسارات عمل منظمة وقابلة للتتبع والقياس — دون رسوم خفية ودون حدود مصطنعة. كل حل أنتا يعمل محليًا أولًا، ثم يتصل بالإنترنت عندما تريد الذكاء أو الوصول عن بُعد أو التكامل — وليس العكس أبدًا.
+  </p>
+
+  <div class="stats-grid">
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Offline capable</div></div>
+    <div class="stat"><div class="stat-num">6</div><div class="stat-label">Locations free</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Users & records</div></div>
+    <div class="stat"><div class="stat-num">0</div><div class="stat-label">Hidden fees</div></div>
+  </div>
+
+  <!-- Section 2: Mission & Vision -->
+  <div class="chapter-header">
+    <span class="section-tag">02 · Mission & Vision</span>
+    <h2 class="section-title">Why we exist, and where we're going</h2>
+    <h3 class="section-title-ar">لماذا وُجدنا، وإلى أين نمضي</h3>
+    <div class="divider"></div>
+  </div>
+
+  <div class="two-col">
+    <div class="lang-block en">
+      <h3>Mission</h3>
+      <p>To give businesses and individuals software they fully own: their code, their data and their operations, protected by offline security and empowered by online intelligence.</p>
+    </div>
+    <div class="lang-block ar">
+      <h3>الرسالة</h3>
+      <p>نمنح الشركات والأفراد برمجيات يملكونها بالكامل: الكود والبيانات والتشغيل، بحماية تعمل دون اتصال وذكاء متاح عند الحاجة عبر الإنترنت.</p>
+    </div>
+    <div class="lang-block en">
+      <h3>Vision</h3>
+      <p>A region where every clinic, shop, fleet, HR team and home runs on resilient systems that never depend on someone else's servers to keep working.</p>
+    </div>
+    <div class="lang-block ar">
+      <h3>الرؤية</h3>
+      <p>أن تعمل كل عيادة ومتجر وأسطول وإدارة موارد بشرية ومنزل على أنظمة مرنة لا تتوقف بتوقف الاتصال أو خوادم الغير.</p>
+    </div>
+  </div>
+
+  <!-- Section 3: What makes AntA different -->
+  <div class="chapter-header">
+    <span class="section-tag">03 · What Makes AntA Different</span>
+    <h2 class="section-title">Six principles, one operating system</h2>
+    <h3 class="section-title-ar">ستة مبادئ، نظام تشغيل واحد</h3>
+    <div class="divider"></div>
+  </div>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-num">01</div>
+      <div class="pillar-title">Ownership</div>
+      <div class="pillar-title-ar">الملكية</div>
+      <div class="pillar-body">Your code, your data, your control — no vendor lock-in.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">02</div>
+      <div class="pillar-title">Offline-first security</div>
+      <div class="pillar-title-ar">أمان يبدأ دون اتصال</div>
+      <div class="pillar-body">Systems run 100% offline and store data locally.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">03</div>
+      <div class="pillar-title">Online intelligence</div>
+      <div class="pillar-title-ar">ذكاء عبر الإنترنت عند الطلب</div>
+      <div class="pillar-body">Optional online mode for analytics and remote access.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">04</div>
+      <div class="pillar-title">Local hosting</div>
+      <div class="pillar-title-ar">استضافة محلية</div>
+      <div class="pillar-body">Host on your resources; access up to 6 locations free.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">05</div>
+      <div class="pillar-title">No hidden fees</div>
+      <div class="pillar-title-ar">بلا رسوم خفية</div>
+      <div class="pillar-body">Unlimited users, visits, patients, branches, storage.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">06</div>
+      <div class="pillar-title">Built for the region</div>
+      <div class="pillar-title-ar">مصمم للمنطقة</div>
+      <div class="pillar-body">Designed with Egyptian and MEA business realities in mind.</div>
+    </div>
+  </div>
+
+  <!-- Section 4: Solutions overview -->
+  <div class="chapter-header">
+    <span class="section-tag">04 · Solutions at a Glance</span>
+    <h2 class="section-title">One suite. Every operation.</h2>
+    <h3 class="section-title-ar">مجموعة واحدة. كل العمليات.</h3>
+    <div class="divider"></div>
+  </div>
+
+  <p class="body-text">
+    AntA is a suite of six management systems — Care, Shop, Fleet, Home, Car and HR — built on the same resilient, owner-controlled core. Each works 100% offline by default, with optional online intelligence for analytics, remote access and integrations. Each brochure is available for download from the website.
+  </p>
+
+  <div class="solutions-grid">
+    <div class="solution-card">
+      <div class="solution-name">AntA Care</div>
+      <div class="solution-name-ar">أنتا كير</div>
+      <div class="solution-tagline">Clinic & Medical Center Management</div>
+      <div class="solution-desc">Patient records, in-house pharmacy, doctor commissions, appointments and an integrated queue system — fully offline.</div>
+      <div class="solution-desc-ar">سجل المرضى، الصيدلية الداخلية، نسب الأطباء، المواعيد ونظام الطابور المتكامل — كل ذلك دون إنترنت.</div>
+    </div>
+    <div class="solution-card">
+      <div class="solution-name">AntA Shop</div>
+      <div class="solution-name-ar">أنتا شوب</div>
+      <div class="solution-tagline">POS & Retail Management</div>
+      <div class="solution-desc">Point of sale, multi-branch inventory, full accounting, payroll, loyalty programs and instant P&L.</div>
+      <div class="solution-desc-ar">نقطة البيع، إدارة المخزون متعدد الفروع، محاسبة كاملة، رواتب، برامج ولاء، وأرباح وخسائر فورية.</div>
+    </div>
+    <div class="solution-card">
+      <div class="solution-name">AntA Fleet</div>
+      <div class="solution-name-ar">أنتا فليت</div>
+      <div class="solution-tagline">Fleet Management</div>
+      <div class="solution-desc">Daily operations, driver portals, GPS tracking, maintenance module and automated license-renewal reminders.</div>
+      <div class="solution-desc-ar">العمليات اليومية، بوابات السائقين، تتبع GPS، وحدة الصيانة، وتذكيرات تلقائية لتجديد التراخيص.</div>
+    </div>
+    <div class="solution-card">
+      <div class="solution-name">AntA Home</div>
+      <div class="solution-name-ar">أنتا هوم</div>
+      <div class="solution-tagline">Smart Home Management</div>
+      <div class="solution-desc">Household staff, scheduled maintenance, device warranties, stock, seasonal checklists and cost tracking.</div>
+      <div class="solution-desc-ar">العاملون في المنزل، الصيانة المجدولة، ضمانات الأجهزة، المخزون، القوائم الموسمية، وتتبع التكاليف.</div>
+    </div>
+    <div class="solution-card">
+      <div class="solution-name">AntA Car</div>
+      <div class="solution-name-ar">أنتا كار</div>
+      <div class="solution-tagline">Private Car Management</div>
+      <div class="solution-desc">Maintenance, mileage, tires, batteries, violations and license renewals — your interactive garage.</div>
+      <div class="solution-desc-ar">الصيانة، الكيلومترات، الإطارات، البطاريات، المخالفات، وتجديد التراخيص — جراجك التفاعلي.</div>
+    </div>
+    <div class="solution-card">
+      <div class="solution-name">AntA HR</div>
+      <div class="solution-name-ar">أنتا إتش آر</div>
+      <div class="solution-tagline">HR Operations Solutions</div>
+      <div class="solution-desc">Document Creator, Employee Assets Book, ATS, vacation planner and digital archive — full employee life cycle.</div>
+      <div class="solution-desc-ar">منشئ المستندات، سجل أصول الموظفين، تتبع المتقدمين، مخطط الإجازات، والأرشيف الرقمي — دورة حياة الموظف كاملة.</div>
+    </div>
+  </div>
+
+  <!-- Section 5: Roadmap -->
+  <div class="chapter-header">
+    <span class="section-tag">05 · Coming Soon</span>
+    <h2 class="section-title">What we're building next</h2>
+    <h3 class="section-title-ar">ما نبنيه تاليًا</h3>
+    <div class="divider"></div>
+  </div>
+
+  <p class="body-text">
+    The AntA roadmap extends HR operations with modules designed to plug into the same resilient, owner-controlled core — covering job evaluation, compensation, performance, budgeting, social insurance and ROI metrics.
+  </p>
+  <ul class="body-text" style="padding-left: 18px; margin-top: 6px;">
+    <li><b>Job Evaluation Tool</b> — structure and grade roles objectively.</li>
+    <li><b>Compensation & Benefits Portal</b> — salary structure, grading, increases and promotions.</li>
+    <li><b>Performance Evaluation Tool</b> — measurable employee performance.</li>
+    <li><b>Budget and Forecast Tool</b> — planning and forward-looking finance.</li>
+    <li><b>Social Insurance Management</b> — Form 2 calculation and monthly breakdown tracking.</li>
+    <li><b>HR ROI and Metrics Dashboard</b> — quantified HR impact.</li>
+  </ul>
+  <p class="body-text-ar" style="direction: rtl; text-align: right;">
+    يوسّع خط أنتا عمليات الموارد البشرية بوحدات مصممة لتتصل بنفس النواة المرنة: تقييم الوظائف، بوابة التعويضات والمزايا، تقييم الأداء، الموازنة والتنبؤ، التأمينات الاجتماعية (نموذج 2)، ومؤشرات العائد على الاستثمار في الموارد البشرية.
+  </p>
+
+</div>
+
+<!-- ====================== ENDING ====================== -->
+<div class="ending">
+  <div class="ending-top">
+    <span class="ending-pill">Let's talk · لنتحدث</span>
+    <h2 class="ending-headline">
+      Ready to own your<br>
+      <span class="accent">operations?</span>
+    </h2>
+    <div class="ending-ar">
+      جاهز لتملك عملياتك؟ راسلنا واحجز عرضًا تجريبيًا.
+    </div>
+  </div>
+
+  <div class="ending-bottom">
+    <div class="ending-email">anta.mkrs@gmail.com</div>
+    <div class="ending-website">MK Technologies — Machine Knowledge Resilience Solutions</div>
+    <div class="ending-edition">Edition 2026 · Bilingual Profile</div>
+  </div>
+</div>
+
+</body>
+</html>
