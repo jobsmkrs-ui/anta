@@ -22,12 +22,15 @@ import {
 } from "@/components/ui/select";
 import { useSpecs } from "@/components/SpecsProvider";
 import { useLang } from "@/components/LanguageProvider";
+import { sendForm } from "@/lib/sendForm";
 import { SPECS, PRODUCTS, BRAND } from "@/lib/i18n";
 
 export function SpecsSheet() {
   const { open, setOpen, productId } = useSpecs();
   const { lang } = useLang();
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState(false);
   const [method, setMethod] = useState<"email" | "whatsapp" | "phone">("email");
   // Local selection (used when no productId preselected). When productId is
   // set, the select is controlled by the provider; when the user picks a
@@ -35,13 +38,33 @@ export function SpecsSheet() {
   const [userSelected, setUserSelected] = useState<string>("");
   const selectedProduct = productId ?? userSelected;
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    if (sending) return;
+    const data = new FormData(e.currentTarget);
+    setSending(true);
+    setError(false);
+    const productName =
+      PRODUCTS.find((p) => p.id === selectedProduct)?.name.en ??
+      (selectedProduct || "General inquiry");
+    const ok = await sendForm({
+      subject: `AntA website — Specs request: ${productName}`,
+      product: productName,
+      name: String(data.get("name") ?? ""),
+      email: String(data.get("email") ?? ""),
+      replyto: String(data.get("email") ?? ""),
+      company: String(data.get("company") ?? ""),
+      phone: String(data.get("phone") ?? ""),
+      preferred_contact: method,
+    });
+    setSending(false);
+    if (ok) setSubmitted(true);
+    else setError(true);
   };
 
   const reset = () => {
     setSubmitted(false);
+    setError(false);
     (document.getElementById("specs-form") as HTMLFormElement | null)?.reset();
     setMethod("email");
     setUserSelected("");
@@ -168,6 +191,7 @@ export function SpecsSheet() {
                     </label>
                     <Input
                       required
+                      name="name"
                       placeholder={SPECS.namePlaceholder[lang]}
                       className="bg-background/50"
                     />
@@ -178,6 +202,7 @@ export function SpecsSheet() {
                     </label>
                     <Input
                       required
+                      name="email"
                       type="email"
                       placeholder={SPECS.emailPlaceholder[lang]}
                       className="bg-background/50"
@@ -193,6 +218,7 @@ export function SpecsSheet() {
                     </label>
                     <Input
                       required
+                      name="company"
                       placeholder={SPECS.companyPlaceholder[lang]}
                       className="bg-background/50"
                     />
@@ -203,6 +229,7 @@ export function SpecsSheet() {
                     </label>
                     <Input
                       required
+                      name="phone"
                       type="tel"
                       dir="ltr"
                       placeholder={SPECS.phonePlaceholder[lang]}
@@ -261,11 +288,19 @@ export function SpecsSheet() {
                 {/* Submit */}
                 <Button
                   type="submit"
+                  disabled={sending}
                   className="w-full h-12 bg-[var(--brand-deep)] text-background hover:bg-[var(--brand)] gap-2 shadow-lg shadow-[var(--brand-deep)]/20"
                 >
                   <Send className="h-4 w-4" />
-                  {SPECS.submit[lang]}
+                  {sending ? (lang === "en" ? "Sending…" : "جارٍ الإرسال…") : SPECS.submit[lang]}
                 </Button>
+                {error && (
+                  <p className="text-xs text-red-500 text-center" role="alert">
+                    {lang === "en"
+                      ? `Sorry, your request could not be sent. Please email us at ${BRAND.email}.`
+                      : `عذرًا، تعذّر إرسال طلبك. يرجى مراسلتنا على ${BRAND.email}.`}
+                  </p>
+                )}
 
                 {/* Contact strip */}
                 <div className="pt-4 mt-2 border-t border-border text-center">
