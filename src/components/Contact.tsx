@@ -23,6 +23,7 @@ export function Contact() {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(false);
+  const [errorDetail, setErrorDetail] = useState("");
   const [solution, setSolution] = useState("");
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -34,7 +35,7 @@ export function Contact() {
     setError(false);
     const solutionName =
       PRODUCTS.find((p) => p.id === solution)?.name.en ?? (solution || "Not specified");
-    const ok = await sendForm({
+    const result = await sendForm({
       subject: "AntA website — Contact form",
       name: String(data.get("name") ?? ""),
       company: String(data.get("company") ?? ""),
@@ -45,13 +46,14 @@ export function Contact() {
       botcheck: String(data.get("botcheck") ?? ""),
     });
     setSending(false);
-    if (ok) {
+    if (result.ok) {
       setSent(true);
       setTimeout(() => setSent(false), 6000);
       form.reset();
       setSolution("");
     } else {
       setError(true);
+      setErrorDetail(result.message ?? "");
     }
   };
 
@@ -216,6 +218,9 @@ export function Contact() {
                   {lang === "en"
                     ? `Sorry, your message could not be sent. Please email us at ${BRAND.email}.`
                     : `عذرًا، تعذّر إرسال رسالتك. يرجى مراسلتنا على ${BRAND.email}.`}
+                  {errorDetail && (
+                    <span dir="ltr" className="block mt-1 opacity-80">({errorDetail})</span>
+                  )}
                 </p>
               )}
             </form>
