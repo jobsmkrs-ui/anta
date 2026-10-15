@@ -217,7 +217,7 @@ export function Contact() {
                 <p className="text-xs text-red-400 text-center" role="alert">
                   {lang === "en"
                     ? `Sorry, your message could not be sent. Please email us at ${BRAND.email}.`
-                    : `عذرًا، تعذّر إرسال رسالتك. يرجى مراسلتنا على ${BRAND.email}.`}
+                    : `عذرًا، تعذّر إرسال رسالتك. يرجى مراسلتنا على ${BRAND.email}`}
                   {errorDetail && (
                     <span dir="ltr" className="block mt-1 opacity-80">({errorDetail})</span>
                   )}
