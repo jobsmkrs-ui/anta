@@ -48,7 +48,7 @@ export const BRAND = {
     en: "A region where every clinic, shop, fleet, HR team, home and rental business runs on resilient systems that never depend on someone else's servers to keep working.",
     ar: "أن تعمل كل عيادة ومتجر وأسطول وإدارة موارد بشرية ومنزل وأعمال إيجار على أنظمة مرنة لا تتوقف بتوقف الاتصال أو خوادم الغير.",
   },
-  email: "anta.mkrs@gmail.com",
+  email: "anta.info@aol.com",
   phone: "+20 127 4444 001",
   whatsapp: "+20 127 4444 001",
 };
