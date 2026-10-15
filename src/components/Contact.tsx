@@ -16,16 +16,43 @@ import {
 import { useLang } from "@/components/LanguageProvider";
 import { CONTACT, PRODUCTS, BRAND } from "@/lib/i18n";
 import { Reveal } from "@/components/Reveal";
+import { sendForm } from "@/lib/sendForm";
 
 export function Contact() {
   const { lang } = useLang();
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState(false);
+  const [solution, setSolution] = useState("");
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 6000);
-    (e.target as HTMLFormElement).reset();
+    if (sending) return;
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    setSending(true);
+    setError(false);
+    const solutionName =
+      PRODUCTS.find((p) => p.id === solution)?.name.en ?? (solution || "Not specified");
+    const ok = await sendForm({
+      subject: "AntA website — Contact form",
+      name: String(data.get("name") ?? ""),
+      company: String(data.get("company") ?? ""),
+      email: String(data.get("email") ?? ""),
+      replyto: String(data.get("email") ?? ""),
+      solution: solutionName,
+      message: String(data.get("message") ?? ""),
+      botcheck: String(data.get("botcheck") ?? ""),
+    });
+    setSending(false);
+    if (ok) {
+      setSent(true);
+      setTimeout(() => setSent(false), 6000);
+      form.reset();
+      setSolution("");
+    } else {
+      setError(true);
+    }
   };
 
   return (
@@ -100,18 +127,21 @@ export function Contact() {
             >
               <div className="absolute -top-16 -end-16 w-32 h-32 rounded-full bg-[var(--brand-orange)]/8 blur-2xl" />
 
+              {/* Honeypot: hidden from people, catches spam bots */}
+              <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" />
+
               <div className="grid sm:grid-cols-2 gap-3 relative">
                 <div>
                   <label className="text-[10px] label-mono text-[var(--brand-silver)] mb-1.5 block">
                     {CONTACT.formName[lang]}
                   </label>
-                  <Input required placeholder={CONTACT.formName[lang]} className="bg-[var(--brand-black)] border-[var(--brand-steel)] text-[var(--brand-chrome)] placeholder:text-[var(--brand-silver)]/50" />
+                  <Input required name="name" placeholder={CONTACT.formName[lang]} className="bg-[var(--brand-black)] border-[var(--brand-steel)] text-[var(--brand-chrome)] placeholder:text-[var(--brand-silver)]/50" />
                 </div>
                 <div>
                   <label className="text-[10px] label-mono text-[var(--brand-silver)] mb-1.5 block">
                     {CONTACT.formCompany[lang]}
                   </label>
-                  <Input placeholder={CONTACT.formCompany[lang]} className="bg-[var(--brand-black)] border-[var(--brand-steel)] text-[var(--brand-chrome)] placeholder:text-[var(--brand-silver)]/50" />
+                  <Input name="company" placeholder={CONTACT.formCompany[lang]} className="bg-[var(--brand-black)] border-[var(--brand-steel)] text-[var(--brand-chrome)] placeholder:text-[var(--brand-silver)]/50" />
                 </div>
               </div>
 
@@ -119,14 +149,14 @@ export function Contact() {
                 <label className="text-[10px] label-mono text-[var(--brand-silver)] mb-1.5 block">
                   {CONTACT.formEmail[lang]}
                 </label>
-                <Input required type="email" placeholder="you@company.com" className="bg-[var(--brand-black)] border-[var(--brand-steel)] text-[var(--brand-chrome)] placeholder:text-[var(--brand-silver)]/50" />
+                <Input required name="email" type="email" placeholder="you@company.com" className="bg-[var(--brand-black)] border-[var(--brand-steel)] text-[var(--brand-chrome)] placeholder:text-[var(--brand-silver)]/50" />
               </div>
 
               <div className="relative">
                 <label className="text-[10px] label-mono text-[var(--brand-silver)] mb-1.5 block">
                   {CONTACT.formSolution[lang]}
                 </label>
-                <Select>
+                <Select value={solution} onValueChange={setSolution}>
                   <SelectTrigger className="w-full bg-[var(--brand-black)] border-[var(--brand-steel)] text-[var(--brand-chrome)]">
                     <SelectValue placeholder={CONTACT.solutionsPlaceholder[lang]} />
                   </SelectTrigger>
@@ -147,11 +177,12 @@ export function Contact() {
                 <label className="text-[10px] label-mono text-[var(--brand-silver)] mb-1.5 block">
                   {CONTACT.formMessage[lang]}
                 </label>
-                <Textarea rows={3} placeholder={CONTACT.formMessage[lang]} className="bg-[var(--brand-black)] border-[var(--brand-steel)] text-[var(--brand-chrome)] placeholder:text-[var(--brand-silver)]/50" />
+                <Textarea rows={3} name="message" placeholder={CONTACT.formMessage[lang]} className="bg-[var(--brand-black)] border-[var(--brand-steel)] text-[var(--brand-chrome)] placeholder:text-[var(--brand-silver)]/50" />
               </div>
 
               <Button
                 type="submit"
+                disabled={sending}
                 className="w-full h-11 bg-[var(--brand-orange)] text-black hover:bg-[var(--brand-orange-bright)] gap-2 font-bold uppercase tracking-wider text-sm"
               >
                 <AnimatePresence mode="wait" initial={false}>
@@ -175,11 +206,18 @@ export function Contact() {
                       className="inline-flex items-center gap-2"
                     >
                       <Send className="h-4 w-4" />
-                      {CONTACT.formSubmit[lang]}
+                      {sending ? (lang === "en" ? "Sending…" : "جارٍ الإرسال…") : CONTACT.formSubmit[lang]}
                     </motion.span>
                   )}
                 </AnimatePresence>
               </Button>
+              {error && (
+                <p className="text-xs text-red-400 text-center" role="alert">
+                  {lang === "en"
+                    ? `Sorry, your message could not be sent. Please email us at ${BRAND.email}.`
+                    : `عذرًا، تعذّر إرسال رسالتك. يرجى مراسلتنا على ${BRAND.email}.`}
+                </p>
+              )}
             </form>
           </Reveal>
         </div>
